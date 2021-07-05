@@ -25,7 +25,7 @@ commands:
       - run:
           name: Run Unit and Integration testing
           command: |
-            cd ./src/backend
+            cd ./src/backend && pwd
             yarn test
   run_backend_release:
     steps:
