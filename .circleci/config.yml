@@ -7,13 +7,12 @@ commands:
   run_install_dependencies:
     steps:
       - run:
-        name: Install Dependencies
-        command: |
-          cd ./src/backend
-          yarn install
-          yarn migrate:test-ci
-          yarn prisma generate
-
+          name: Install Dependencies
+          command: |
+            cd ./src/backend
+            yarn install
+            yarn migrate:test-ci
+            yarn prisma generate
   run_lint_check:
     steps:
       - run:
