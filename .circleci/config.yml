@@ -45,9 +45,7 @@ executors:
           REDIS_PASS: password
       - image: circleci/postgres:9.6.5-alpine-ram
         environment:
-          DATABASE_URL: postgresql://root@localhost/testdb?schema=test
-          POSTGRES_USER: root
-          POSTGRES_DB: testdb
+          DATABASE_URL: postgresql://postgres:root@localhost/testdb:5432?schema=test
       - image: circleci/redis:6.0.8-alpine
         command: ["redis-server", "--requirepass", "password", "--appendfsync", "no", "--save", "", "--appendonly", "no"]
 
