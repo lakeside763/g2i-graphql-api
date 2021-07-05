@@ -31,6 +31,7 @@ describe('account.integration', () => {
     });
     expect(statusCode).toBe(200);
     expect(login).toHaveProperty('token');
+    expect(login).toHaveProperty('user.id');
     expect(login).toHaveProperty('user.email', input.email);
   });
 });
