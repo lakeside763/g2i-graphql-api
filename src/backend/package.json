@@ -22,6 +22,7 @@
     "migrate:local:down": "npx dotenv -e .env.local -- yarn migrate:down",
     "migrate:test": "npx dotenv -e .env.test.local -- yarn migrate:up",
     "migrate:test:down": "npx dotenv -e .env.test.local -- yarn migrate:down",
+    "migrate:test-ci:down": "npx dotenv -e .env.test.ci -- yarn migrate:down",
     "migrate:test-ci": "npx dotenv -e .env.test.ci -- yarn migrate:up",
     "migrate": "yarn migrate:local && yarn migrate:test",
     "migrate-down": "yarn migrate:local:down && yarn migrate:test:down",

@@ -11,6 +11,8 @@ commands:
           command: |
             cd ./src/backend
             yarn install
+            yarn migrate:test-ci:down
+            yarn migrate:test-ci
   run_lint_check:
     steps:
       - run:
