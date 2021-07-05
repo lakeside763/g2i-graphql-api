@@ -17,6 +17,7 @@
     "migrate:down": "yarn db-migrate down",
     "migrate:save": "npx dotenv -e .env.local -- yarn db-migrate create",
     "introspect": "npx dotenv -e .env.local -- yarn prisma introspect",
+    "introspect:test-ci": "npx dotenv -e .env.test.ci -- yarn prisma introspect --force",
     "studio": "npx dotenv -e .env.local -- yarn prisma studio",
     "migrate:local": "npx dotenv -e .env.local -- yarn migrate:up",
     "migrate:local:down": "npx dotenv -e .env.local -- yarn migrate:down",
