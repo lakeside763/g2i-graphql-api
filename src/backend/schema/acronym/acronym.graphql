@@ -1,0 +1,47 @@
+type Acronym {
+  "acronym unique id, auto generated"
+  id: Int
+  "acronym abbreviation"
+  acronym: String
+  "meaning of acronym"
+  meaning: String
+  "acronym created date, auto generated"
+  created_at: Date
+  "acronym updated date, auto generated"
+  updated_at: Date
+}
+
+input CreateAcronymInput {
+  "acronym name is required"
+  acronym: String!
+  "acronym meaning is required"
+  meaning: String!
+}
+
+input UpdateAcronymInput {
+  id: Int!
+  meaning: String
+}
+
+type AcronymResponse {
+  "list of acronyms"
+  data: [Acronym]
+  "query response metadata"
+  description: String
+}
+
+type Query {
+  "A query that fetch acronyms list"
+  getAcronyms(page: PageFilters!): AcronymResponse
+  "A query that fetch a record of acronym"
+  getAcronym(acronym: String!): Acronym
+  "A query that fetch acronyms by number of count"
+  getAcronymsByCount(count: Int!): [Acronym]
+}
+
+type Mutation {
+  "Provide acronym, meaning to create acronym"
+  createAcronym(input: CreateAcronymInput!): Acronym
+  "Provide "
+  updateAcronym(input: UpdateAcronymInput!): Acronym
+}

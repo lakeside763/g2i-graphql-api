@@ -1,0 +1,58 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.1
+
+commands:
+  run_lint_check:
+    steps:
+      - run:
+          name: Run Lint Check
+          command: |
+            cd ./src/backend
+            yarn install
+            yarn eslint
+  run_test:
+    steps:
+      - run:
+          name: Run Unit and Integration testing
+          command: |
+            cd ./src/backend
+            yarn test
+  run_backend_release:
+    steps:
+      - run:
+          name: Semantic Release
+          command: |
+            cd ./src/backend
+            yarn semantic-release
+
+
+
+executors:
+  app_docker:
+    docker:
+      - image: cimg/node:12.18.3
+        environment:
+          DATABASE_URL: postgresql://root@localhost/testdb?schema=test
+      - image: circleci/postgres:9.6.5-alpine-ram
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: testdb
+
+
+jobs:
+  test-backend:
+    executor: app_docker
+    steps:
+      - checkout
+      - run_lint_check
+      - run_test
+      - run_backend_release
+
+
+workflows:
+  build_test:
+    jobs:
+      - test-backend
+

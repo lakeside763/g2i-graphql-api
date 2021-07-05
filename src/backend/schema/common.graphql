@@ -1,0 +1,19 @@
+scalar Date
+scalar JSON
+scalar JSONObject
+
+type BooleanResponse {
+  "Response status"
+  status: Boolean
+  "Response message"
+  message: String
+}
+
+input PageFilters {
+  "Offset determines the number of records set to skip, it starts with 0"
+  from: Int
+  "The number of records per page or offset"
+  limit: Int
+  "Search queries by text"
+  search: String
+}
