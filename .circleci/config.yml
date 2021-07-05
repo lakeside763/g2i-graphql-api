@@ -4,13 +4,22 @@ orbs:
   node: circleci/node@4.1
 
 commands:
+  run_install_dependencies:
+    steps:
+      - run:
+        name: Install Dependencies
+        command: |
+          cd ./src/backend
+          yarn install
+          yarn migrate:test-ci
+          yarn prisma generate
+
   run_lint_check:
     steps:
       - run:
           name: Run Lint Check
           command: |
             cd ./src/backend
-            yarn install
             yarn eslint
   run_test:
     steps:
@@ -46,11 +55,13 @@ executors:
         command: ["redis-server", "--requirepass", "password", "--appendfsync", "no", "--save", "", "--appendonly", "no"]
 
 
+
 jobs:
   test-backend:
     executor: app_docker
     steps:
       - checkout
+      - run_install_dependencies
       - run_lint_check
       - run_test
       - run_backend_release
