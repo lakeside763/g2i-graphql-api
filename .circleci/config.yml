@@ -11,8 +11,6 @@ commands:
           command: |
             cd ./src/backend
             yarn install
-            yarn migrate:test-ci:down
-            yarn migrate:test-ci
   run_lint_check:
     steps:
       - run:
@@ -25,7 +23,8 @@ commands:
       - run:
           name: Run Unit and Integration testing
           command: |
-            cd ./src/backend && pwd
+            cd ./src/backend
+            yarn migrate:test-ci
             yarn test
   run_backend_release:
     steps:
