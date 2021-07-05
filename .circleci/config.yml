@@ -35,10 +35,15 @@ executors:
       - image: cimg/node:12.18.3
         environment:
           DATABASE_URL: postgresql://root@localhost/testdb?schema=test
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+          REDIS_PASS: password
       - image: circleci/postgres:9.6.5-alpine-ram
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: testdb
+      - image: circleci/redis:6.0.8-alpine
+        command: ["redis-server", "--requirepass", "password", "--appendfsync", "no", "--save", "", "--appendonly", "no"]
 
 
 jobs:
