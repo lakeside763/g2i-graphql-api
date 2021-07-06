@@ -60,7 +60,7 @@ jobs:
   test-backend:
     executor: app_docker
     environment:
-      DATABASE_URL: postgresql://postgres:password@localhost:5432/g2i?schema=test
+      DATABASE_URL: postgresql://postgres:password@localhost:5432/g2i
     steps:
       - checkout
       - run_install_dependencies
