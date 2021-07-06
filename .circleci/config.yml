@@ -47,7 +47,7 @@ executors:
           REDIS_PASS: password
       - image: circleci/postgres:9.6.5-alpine-ram
         environment:
-          DATABASE_URL: postgresql://postgres:password@localhost/g2i?schema=test
+          DATABASE_URL: postgresql://postgres:password@localhost/g2i_test?schema=test
           POSTGRES_USER: postgres
           POSTGRES_DB: g2i
           POSTGRES_PASSWORD: password
