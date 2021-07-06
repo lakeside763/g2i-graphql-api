@@ -11,6 +11,9 @@ commands:
           command: |
             cd ./src/backend
             yarn install
+            yarn migrate:test-ci
+            yarn introspect:test-ci
+            yarn prisma generate
   run_lint_check:
     steps:
       - run:
@@ -24,9 +27,6 @@ commands:
           name: Run Unit and Integration testing
           command: |
             cd ./src/backend
-            yarn migrate:test-ci
-            yarn introspect:test-ci
-            yarn prisma generate
             yarn test
   run_backend_release:
     steps:
