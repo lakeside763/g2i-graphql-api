@@ -12,6 +12,7 @@ commands:
             cd ./src/backend
             yarn install
             yarn migrate:test-ci
+            yarn introspect:test-ci
             yarn prisma generate
   run_lint_check:
     steps:

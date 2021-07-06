@@ -17,7 +17,7 @@
     "migrate:down": "yarn db-migrate down",
     "migrate:save": "npx dotenv -e .env.local -- yarn db-migrate create",
     "introspect": "npx dotenv -e .env.local -- yarn prisma introspect",
-    "introspect:test-ci": "yarn prisma introspect --url='postgresql://postgres:password@localhost/g2i?schema=test'",
+    "introspect:test-ci": "npx prisma introspect'",
     "studio": "npx dotenv -e .env.local -- yarn prisma studio",
     "migrate:local": "npx dotenv -e .env.local -- yarn migrate:up",
     "migrate:local:down": "npx dotenv -e .env.local -- yarn migrate:down",
