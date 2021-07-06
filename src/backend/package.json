@@ -29,6 +29,7 @@
     "prepdb": "yarn migrate && yarn introspect && yarn prisma generate",
     "prepdb:down": "yarn migrate-down && yarn introspect && yarn prisma generate",
     "test": "jest --forceExit --detectOpenHandles",
+    "test-ci": "jest --ci --runInBand --detectOpenHandles --forceExit",
     "todo": "npx leasot '**/**/*.js' --ignore '**/node_modules'",
     "todo-ci": "npx leasot -x --reporter markdown '**/**/*.js' --ignore '**/node_modules' > TODO.md",
     "lint": "yarn eslint . --fix",

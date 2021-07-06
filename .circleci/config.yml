@@ -26,7 +26,7 @@ commands:
           name: Run Unit and Integration testing
           command: |
             cd ./src/backend
-            yarn test
+            yarn test-ci
   run_backend_release:
     steps:
       - run:
@@ -47,7 +47,7 @@ executors:
           REDIS_PASS: password
       - image: circleci/postgres:9.6.5-alpine-ram
         environment:
-          DATABASE_URL: postgresql://postgres:password@localhost/g2i_test?schema=test
+          DATABASE_URL: postgresql://postgres:password@localhost/g2i?schema=test
           POSTGRES_USER: postgres
           POSTGRES_DB: g2i
           POSTGRES_PASSWORD: password
