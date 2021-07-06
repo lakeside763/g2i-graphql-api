@@ -12,6 +12,7 @@ commands:
             cd ./src/backend
             yarn install
             yarn migrate:test-ci
+            yarn introspect
             yarn prisma generate
   run_lint_check:
     steps:
@@ -47,10 +48,9 @@ executors:
           REDIS_PASS: password
       - image: circleci/postgres:9.6.5-alpine-ram
         environment:
-          DATABASE_URL: postgresql://postgres:password@localhost/g2i?schema=test
-          POSTGRES_USER: postgres
-          POSTGRES_DB: g2i
-          POSTGRES_PASSWORD: password
+          DATABASE_URL: postgresql://root@localhost/testdb?schema=test
+          POSTGRES_USER: root
+          POSTGRES_DB: testdb
       - image: circleci/redis:6.0.8-alpine
         command: ["redis-server", "--requirepass", "password", "--appendfsync", "no", "--save", "", "--appendonly", "no"]
 
@@ -59,6 +59,10 @@ executors:
 jobs:
   test-backend:
     executor: app_docker
+    environment:
+      NODE_ENV: test
+      POSTGRES_USER: root
+      POSTGRES_DB: testdb
     steps:
       - checkout
       - run_install_dependencies
