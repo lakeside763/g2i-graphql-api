@@ -47,20 +47,17 @@ executors:
           REDIS_PASS: password
       - image: circleci/postgres:9.6.5-alpine-ram
         environment:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: g2i
-          POSTGRES_PASSWORD: password
+          POSTGRES_USER: root
+          POSTGRES_DB: testdb
       - image: circleci/redis:6.0.8-alpine
         command: ["redis-server", "--requirepass", "password", "--appendfsync", "no", "--save", "", "--appendonly", "no"]
-
-
 
 
 jobs:
   test-backend:
     executor: app_docker
     environment:
-      DATABASE_URL: postgresql://postgres:password@localhost:5432/g2i
+      DATABASE_URL: postgresql://root@localhost:5432/testdb
     steps:
       - checkout
       - run_install_dependencies
