@@ -4,13 +4,21 @@ orbs:
   node: circleci/node@4.1
 
 commands:
+  run_install_dependencies:
+    steps:
+      - run:
+          name: Install Dependencies
+          command: |
+            cd ./src/backend
+            yarn install
+            yarn migrate:test-ci
+            yarn prisma generate
   run_lint_check:
     steps:
       - run:
           name: Run Lint Check
           command: |
             cd ./src/backend
-            yarn install
             yarn eslint
   run_test:
     steps:
@@ -18,7 +26,7 @@ commands:
           name: Run Unit and Integration testing
           command: |
             cd ./src/backend
-            yarn test
+            yarn test-ci
   run_backend_release:
     steps:
       - run:
@@ -34,18 +42,25 @@ executors:
     docker:
       - image: cimg/node:12.18.3
         environment:
-          DATABASE_URL: postgresql://root@localhost/testdb?schema=test
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+          REDIS_PASS: password
       - image: circleci/postgres:9.6.5-alpine-ram
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: testdb
+      - image: circleci/redis:6.0.8-alpine
+        command: ["redis-server", "--requirepass", "password", "--appendfsync", "no", "--save", "", "--appendonly", "no"]
 
 
 jobs:
   test-backend:
     executor: app_docker
+    environment:
+      DATABASE_URL: postgresql://root@localhost:5432/testdb
     steps:
       - checkout
+      - run_install_dependencies
       - run_lint_check
       - run_test
       - run_backend_release

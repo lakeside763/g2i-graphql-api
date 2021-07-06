@@ -1,8 +1,23 @@
 {
   "defaultEnv": {"ENV": "NODE_ENV"},
-  "test": { "ENV" : "DATABASE_URL" },
-  "skaffold": { "ENV" : "DATABASE_URL" },
-  "local": { "ENV" : "DATABASE_URL" },
+  "test": {
+    "driver": "pg",
+    "user": { "ENV" : "DB_USER" },
+    "password" : { "ENV" : "DB_PASS" },
+    "host": { "ENV" : "DB_HOST" },
+    "port" : { "ENV" : "DB_PORT" },
+    "database": "g2i",
+    "schema": "test"
+  },
+  "local": {
+    "driver": "pg",
+    "user": { "ENV" : "DB_USER" },
+    "password" : { "ENV" : "DB_PASS" },
+    "host": { "ENV" : "DB_HOST" },
+    "port" : { "ENV" : "DB_PORT" },
+    "database": "g2i",
+    "schema": "public"
+  },
   "development": {
     "driver": "pg",
     "user": { "ENV" : "DB_USER" },
