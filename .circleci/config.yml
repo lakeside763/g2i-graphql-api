@@ -27,13 +27,14 @@ commands:
           command: |
             cd ./src/backend
             yarn test-ci
-  run_backend_release:
+  run_bump_version:
     steps:
       - run:
-          name: Semantic Release
+          name: Bump Version
           command: |
-            cd ./src/backend
-            yarn semantic-release
+            npm version prerelease --preid=alpha -m "Bumped version number to % [ci skip]"
+            git push origin main
+            git push --tags
 
 
 
@@ -51,6 +52,10 @@ executors:
           POSTGRES_DB: testdb
       - image: circleci/redis:6.0.8-alpine
         command: ["redis-server", "--requirepass", "password", "--appendfsync", "no", "--save", "", "--appendonly", "no"]
+  bump_docker:
+    docker:
+      - image: circleci/node:12.18.3-stretch
+
 
 
 jobs:
@@ -63,11 +68,25 @@ jobs:
       - run_install_dependencies
       - run_lint_check
       - run_test
-      - run_backend_release
+  bump-version:
+    executor: bump_docker
+    steps:
+      - checkout
+      - run_bump_version
+
 
 
 workflows:
   build_test:
     jobs:
       - test-backend
+      - bump-version:
+          name: bump-version
+          requires:
+            - test-backend
+          filters:
+            branches:
+              only:
+                - develop
+              ignore: /.*/
 
