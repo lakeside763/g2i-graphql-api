@@ -81,7 +81,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lakeside763/g2i-nodejs.git"
+    "url": "https://github.com/lakeside763/g2i-graphql-api.git"
   },
   "publishConfig": {
     "access": "restricted"
