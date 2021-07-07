@@ -31,6 +31,10 @@ commands:
     steps:
       - run:
           name: Bump Version
+          command: |
+            npm version prerelease --preid=alpha -m "Bumped version number to % [ci skip]"
+            git push origin main
+            git push --tags
 
 
 
