@@ -68,6 +68,7 @@ describe('sanity check', () => {
       variables: { input: updateInput },
     });
     expect(statusCode).toBe(200);
+    expect(updateAcronym).toHaveProperty('id');
     expect(updateAcronym).toHaveProperty('acronym');
     expect(updateAcronym).toHaveProperty('meaning', updateInput.meaning);
   });
