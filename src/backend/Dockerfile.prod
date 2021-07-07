@@ -1,0 +1,23 @@
+FROM node:14.0.0 as build
+
+LABEL author="Olalekan Idowu"
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN yarn install
+
+COPY . ./
+
+RUN yarn prisma generate
+
+RUN yarn build
+
+FROM nginx:stable-alpine
+
+COPY --from=build /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g" "daemon off;"]
