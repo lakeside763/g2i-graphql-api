@@ -16,6 +16,7 @@ describe('acronym.model', () => {
     const data = acronymProvider.getRecord();
     const acronym = await prisma.acronym.create({ data });
     expect(acronym).toHaveProperty('id');
+    expect(acronym).toHaveProperty('acronym', data.acronym);
     expect(acronym.created_at).toBeTruthy();
   });
 });
