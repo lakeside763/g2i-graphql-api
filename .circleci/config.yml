@@ -32,9 +32,9 @@ commands:
       - run:
           name: Bump Version
           command: |
-            ./src/backend
             git config --global user.email "lakeside763@gmail.com"
             git config --global user.name "Olalekan Idowu"
+            ./src/backend && pwd
             npm version prerelease --preid=alpha -m "Bumped version number to % [ci skip]"
             git push -u origin develop
             git push --tags
