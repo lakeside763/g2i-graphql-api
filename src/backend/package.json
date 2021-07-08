@@ -1,9 +1,10 @@
 {
   "name": "g2igraphql-backend",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.2",
   "description": "Backend API for g2i graphql services",
   "main": "index.js",
-  "author": "Olalekan Idowu",
+  "repository": "https://github.com/lakeside763/g2i-graphql-api.git",
+  "author": "Olalekan Idowu <lakeside763@gmail.com>",
   "license": "MIT",
   "private": true,
   "engines": {
@@ -78,10 +79,6 @@
     "prisma": "^2.22.0",
     "semantic-release": "^17.4.2",
     "supertest": "^6.1.3"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lakeside763/g2i-graphql-api.git"
   },
   "publishConfig": {
     "access": "restricted"
