@@ -32,7 +32,7 @@ commands:
       - run:
           name: Bump Version
           command: |
-            ./src/backend npm version prerelease --preid=alpha -m "Bumped version number to % [ci skip]"
+            npm version prerelease --preid=alpha -m "Bumped version number to % [ci skip]"
             git push -u origin develop
             git push --tags
 
