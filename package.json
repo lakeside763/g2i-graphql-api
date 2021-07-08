@@ -1,0 +1,9 @@
+{
+  "name": "g2i-graphql-api",
+  "pivate": true,
+  "version": "1.0.0-alpha.2",
+  "main": "index.js",
+  "repository": "https://github.com/lakeside763/g2i-graphql-api.git",
+  "author": "Olalekan Idowu <lakeside763@gmail.com>",
+  "license": "MIT"
+}
