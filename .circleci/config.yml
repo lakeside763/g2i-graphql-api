@@ -33,6 +33,8 @@ commands:
           name: Bump Version
           command: |
             npm version prerelease --preid=alpha -m "Bumped version number to % [ci skip]"
+            git config --global user.email "lakeside763@gmail.com"
+            git config --global user.name "lakeside763"
             git push -u origin develop
             git push --tags
 
