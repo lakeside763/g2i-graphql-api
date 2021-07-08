@@ -33,8 +33,6 @@ commands:
           name: Bump Version
           command: |
             npm version prerelease --preid=alpha -m "Bumped version number to % [ci skip]"
-            git config --global user.email "lakeside763@gmail.com"
-            git config --global user.name "lakeside763"
             git push -u origin develop
             git push --tags
 
@@ -74,6 +72,9 @@ jobs:
     executor: bump_docker
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "e5:1a:95:3f:5b:71:d4:74:ce:1a:5e:26:02:f9:30:80"
       - run_bump_version
 
 
