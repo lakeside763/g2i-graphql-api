@@ -7,9 +7,6 @@
   "author": "Olalekan Idowu <lakeside763@gmail.com>",
   "license": "MIT",
   "private": true,
-  "engines": {
-    "node": "12.18.3"
-  },
   "scripts": {
     "start": "node index.js",
     "dev": "yarn nodemon -r dotenv/config index.js dotenv_config_path=.env.local",
