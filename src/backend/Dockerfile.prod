@@ -1,19 +1,20 @@
-FROM node:14.0.0 as build
-
+FROM node:12.18.3-alpine AS base
+FROM base AS build
 LABEL author="Olalekan Idowu"
 
 WORKDIR /app
-
-COPY package*.json ./
-
+ADD ./package.json ./yarn.lock ./
 RUN yarn install
 
-COPY . ./
+# copy node_modules from the build image
+FROM base
+
+WORKDIR /app
+COPY --from=build /app/node_modules node_modules
+ADD . /app
 
 RUN yarn prisma generate
 
-FROM nginx:stable-alpine
+EXPOSE 4000
 
-EXPOSE 80
-
-CMD ["nginx", "-g" "daemon off;"]
+CMD ["start", "start"]
