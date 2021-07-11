@@ -3,6 +3,14 @@ version: 2.1
 orbs:
   node: circleci/node@4.1
 
+parameters:
+  repo:
+    type: string
+    default: "lakeside763/acronym-graphql-api"
+  dockerfile:
+    type: string
+    default: Dockerfile.prod
+
 commands:
   run_install_dependencies:
     steps:
@@ -37,6 +45,25 @@ commands:
             git config --global user.name "Olalekan Idowu"
             npm version prerelease --preid=alpha
             git add -A && git commit -m "ci: bumped version number [ci skip]" && git push
+  run_docker_login:
+    steps:
+      - run:
+          name: Docker Login
+          command: >
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+  run_build_and_tag_image:
+    steps:
+      - run:
+          name: Build and Tag Image
+          command: |
+            ./src/backend
+            docker build . -f << pipeline.parameters.dockerfile >> -t << pipeline.parameters.repo >>:latest
+  run_push_image:
+    steps:
+      - run:
+         name: Push Image
+         command: |
+          docker push << pipeline.parameters.repo >>
 
 
 
@@ -57,6 +84,11 @@ executors:
   bump_docker:
     docker:
       - image: circleci/node:12.18.3-stretch
+  build_and_push_docker:
+    docker:
+      - image: meindach/docker@0.0.1
+
+
 
 
 
@@ -78,6 +110,15 @@ jobs:
           fingerprints:
             - "e5:1a:95:3f:5b:71:d4:74:ce:1a:5e:26:02:f9:30:80"
       - run_bump_version
+  build-and-push:
+    executor: build_and_push_docker
+    steps:
+      - checkout
+      - run_docker_login
+      - run_build_and_tag_image
+      - run_push_image
+
+
 
 
 
@@ -89,6 +130,16 @@ workflows:
           name: bump-version
           requires:
             - test-backend
+          filters:
+            branches:
+              only:
+                - develop
+              ignore: /.*/
+      - build-and-push:
+          name: build-and-push
+          requires:
+            - test-backend
+            - bump-version
           filters:
             branches:
               only:
