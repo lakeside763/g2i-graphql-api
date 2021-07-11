@@ -86,7 +86,7 @@ executors:
       - image: circleci/node:12.18.3-stretch
   build_and_push_docker:
     docker:
-      - image: meindach/docker@0.0.1
+      - image: circleci/buildpack-deps:stretch
 
 
 
