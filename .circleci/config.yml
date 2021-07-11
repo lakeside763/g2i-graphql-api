@@ -56,7 +56,7 @@ commands:
       - run:
           name: Build and Tag Image
           command: |
-            ./src/backend
+            cd ./src/backend
             docker build . -f << pipeline.parameters.dockerfile >> -t << pipeline.parameters.repo >>:latest
   run_push_image:
     steps:
