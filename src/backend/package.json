@@ -1,6 +1,6 @@
 {
   "name": "g2igraphql-backend",
-  "version": "1.0.0-alpha.15",
+  "version": "1.0.0-alpha.16",
   "description": "Backend API for g2i graphql services",
   "main": "index.js",
   "repository": "https://github.com/lakeside763/g2i-graphql-api.git",
