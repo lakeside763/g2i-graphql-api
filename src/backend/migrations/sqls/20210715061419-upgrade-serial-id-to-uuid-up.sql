@@ -1,0 +1,9 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+ALTER TABLE "acronym" DROP COLUMN IF EXISTS "id";
+ALTER TABLE "acronym" ADD COLUMN IF NOT EXISTS "id" uuid DEFAULT uuid_generate_v4();
+ALTER TABLE "acronym" ADD PRIMARY KEY (id);
+
+ALTER TABLE "user" DROP COLUMN IF EXISTS "id";
+ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "id" uuid DEFAULT uuid_generate_v4();
+ALTER TABLE "user" ADD PRIMARY KEY (id);

@@ -3,20 +3,26 @@ const _ = require('lodash');
 const RootDataSource = require('./root.datasource');
 
 class AcronymsDataSource extends RootDataSource {
-  async getAcronyms({ from, limit, search }) {
-    const query = {
-      where: {
-        OR: [
-          { acronym: { contains: search, mode: 'insensitive' } },
-          { meaning: { contains: search, mode: 'insensitive' } },
-        ],
-      },
+  async getAcronyms({ search, filters = {}, ...rest }) {
+    const where = {
+      AND: filters,
     };
+
+    if (search) {
+      where.OR = [
+        { acronym: { contains: search, mode: 'insensitive' } },
+        { meaning: { contains: search, mode: 'insensitive' } },
+      ];
+    }
+
+    const query = { where };
     const count = await this.context.prisma.acronym.count(query);
-    const take = parseInt((limit > 0 ? limit : 10, 10), 10);
-    const skip = parseInt((from <= 1 ? 0 : (limit * (from - 1))), 10);
+    const from = rest.from || 1;
+    const limit = rest.limit || 20;
+    const take = limit;
+    const skip = limit * (from - 1);
     const acronyms = await this.context.prisma.acronym.findMany({ ...query, skip, take });
-    const pageCount = count < take ? count : take;
+    const pageCount = count < take ? count : take * from;
     const description = `showing ${skip + 1} to ${pageCount}  of ${count}`;
     return { data: acronyms, description };
   }

@@ -30,6 +30,7 @@ const server = new ApolloServer({
     permissions,
   ),
   cache,
+  tracing: config.apollo.tracing,
   dataSources: () => ({
     acronyms: new datasources.Acronyms(),
     token: new datasources.Token(config),

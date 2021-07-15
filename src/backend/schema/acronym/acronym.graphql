@@ -1,6 +1,6 @@
 type Acronym {
   "acronym unique id, auto generated"
-  id: Int
+  id: ID
   "acronym abbreviation"
   acronym: String
   "meaning of acronym"
@@ -19,7 +19,7 @@ input CreateAcronymInput {
 }
 
 input UpdateAcronymInput {
-  id: Int!
+  id: ID!
   meaning: String
 }
 
@@ -32,7 +32,7 @@ type AcronymResponse {
 
 type Query {
   "A query that fetch acronyms list"
-  getAcronyms(page: PageFilters!): AcronymResponse
+  getAcronyms(page: PageFilters): AcronymResponse
   "A query that fetch a record of acronym"
   getAcronym(acronym: String!): Acronym
   "A query that fetch acronyms by number of count"
