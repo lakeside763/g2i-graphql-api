@@ -16,4 +16,6 @@ input PageFilters {
   limit: Int
   "Search queries by text"
   search: String
+  "filters to search records by"
+  filters: JSONObject
 }
