@@ -13,6 +13,11 @@ model acronym {
   meaning    String?   @db.VarChar(255)
   created_at DateTime? @default(now()) @db.Timestamp(6)
   updated_at DateTime? @default(now()) @db.Timestamp(6)
+
+  @@index([acronym], name: "acronym_idx")
+  @@index([acronym], name: "acronym_trgm_idx")
+  @@index([meaning], name: "meaning_idx")
+  @@index([meaning], name: "meaning_trgm_idx")
 }
 
 model migrations {
