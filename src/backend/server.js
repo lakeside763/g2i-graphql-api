@@ -5,6 +5,7 @@ const { RedisCache } = require('apollo-server-cache-redis');
 const { applyMiddleware } = require('graphql-middleware');
 const indexRouter = require('./routes/index');
 const config = require('./config');
+const helpers = require('./helpers');
 const datasources = require('./datasources');
 const prisma = require('./database');
 
@@ -60,6 +61,7 @@ const server = new ApolloServer({
       prisma,
       auth,
       authErrorMessage,
+      helpers,
     };
   },
 });

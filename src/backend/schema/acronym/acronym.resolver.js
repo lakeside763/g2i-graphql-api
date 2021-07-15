@@ -1,8 +1,9 @@
 module.exports = {
   Query: {
-    getAcronyms: async (root, { page }, { dataSources }) => {
+    getAcronyms: async (root, { page }, { dataSources, helpers }) => {
       try {
-        return await dataSources.acronyms.getAcronyms(page);
+        const page_sanitized = await helpers.sanitizer.sanitize(page);
+        return await dataSources.acronyms.getAcronyms(page_sanitized);
       } catch (error) {
         return error;
       }
@@ -23,9 +24,10 @@ module.exports = {
     },
   },
   Mutation: {
-    createAcronym: async (root, { input }, { dataSources }) => {
+    createAcronym: async (root, { input }, { dataSources, helpers }) => {
       try {
-        return await dataSources.acronyms.createAcronym(input);
+        const input_sanitized = await helpers.sanitizer.sanitize(input);
+        return await dataSources.acronyms.createAcronym(input_sanitized);
       } catch (error) {
         return error;
       }
