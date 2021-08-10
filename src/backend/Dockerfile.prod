@@ -9,11 +9,12 @@ RUN yarn install
 # copy node_modules from the build image
 FROM base
 
-ENV DATABASE_URL=postgresql://postgres:password@localhost:5432/g2i?schema=public
 WORKDIR /app
+ENV DATABASE_URL=postgresql://postgres:password@localhost:5432/g2i?schema=public
 COPY --from=build /app/node_modules node_modules
 ADD . /app
 
+RUN env
 RUN yarn prisma generate
 
 EXPOSE 4000
