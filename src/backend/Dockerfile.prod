@@ -9,8 +9,8 @@ RUN yarn install
 # copy node_modules from the build image
 FROM base
 
-WORKDIR /app
 ENV DATABASE_URL=postgresql://postgres:password@localhost:5432/g2i?schema=public
+WORKDIR /app
 COPY --from=build /app/node_modules node_modules
 ADD . /app
 
