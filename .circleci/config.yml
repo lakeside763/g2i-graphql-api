@@ -87,6 +87,7 @@ executors:
   build_and_push_docker:
     docker:
       - image: circleci/buildpack-deps
+      - image: circleci/postgres:9.6.5-alpine-ram
         environment:
           DATABASE_URL: postgresql://postgres:password@localhost:5432/g2i?schema=public
 
