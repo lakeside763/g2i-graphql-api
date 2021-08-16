@@ -57,13 +57,13 @@ commands:
           name: Build and Tag Image
           command: |
             cd ./src/backend
-            docker-compose build
+            docker build . -f << pipeline.parameters.dockerfile >> -t << pipeline.parameters.repo >>:latest
   run_push_image:
     steps:
       - run:
          name: Push Image
          command: |
-          docker push
+          docker push << pipeline.parameters.repo >>
 
 
 
@@ -87,6 +87,12 @@ executors:
   build_and_push_docker:
     docker:
       - image: circleci/buildpack-deps
+      - image: circleci/postgres:9.6.5-alpine-ram
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: g2i
+
 
 
 
@@ -111,8 +117,11 @@ jobs:
       - run_bump_version
   build-and-push:
     executor: build_and_push_docker
+    environment:
+      DATABASE_URL: postgresql://postgres:password@localhost:5432/g2i?schema=public
     steps:
       - checkout
+      - setup_remote_docker
       - run_build_and_tag_image
       - run_docker_login
       - run_push_image
