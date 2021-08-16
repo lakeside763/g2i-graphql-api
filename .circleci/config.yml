@@ -94,8 +94,6 @@ executors:
 jobs:
   test-backend:
     executor: app_docker
-    environment:
-      DATABASE_URL: postgresql://root@localhost:5432/testdb
     steps:
       - checkout
       - run_install_dependencies
