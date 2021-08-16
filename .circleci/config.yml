@@ -63,7 +63,7 @@ commands:
       - run:
          name: Push Image
          command: |
-          docker push -a
+          docker-compose push
 
 
 
