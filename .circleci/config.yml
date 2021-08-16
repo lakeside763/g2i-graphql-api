@@ -63,7 +63,7 @@ commands:
       - run:
          name: Push Image
          command: |
-          docker push
+          docker push << pipeline.parameters.repo >>
 
 
 
