@@ -63,7 +63,7 @@ commands:
       - run:
          name: Push Image
          command: |
-          docker push ["lakeside763/acronym-graphql-api", "lakeside763/g2i-db"]
+          docker push -a
 
 
 
