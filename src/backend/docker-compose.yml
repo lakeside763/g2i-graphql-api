@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   web:
-    image: nodeapp
+    image: lakeside763/acronym-graphql-api
     build:
       context: .
       dockerfile: node.dockerfile
@@ -14,7 +14,10 @@ services:
       - "4000:4000"
 
   db:
-    image: postgres:12.8-alpine
+    image: lakeside763/g2i-db
+    build:
+      context: .
+      dockerfile: postgres.dockerfile
     restart: unless-stopped
     expose:
       - "5432"
