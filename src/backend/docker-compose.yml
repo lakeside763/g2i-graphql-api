@@ -2,31 +2,66 @@ version: "3.7"
 
 services:
   web:
+    container_name: acronym_api
     image: lakeside763/acronym-graphql-api
     build:
       context: .
       dockerfile: node.dockerfile
       args:
         buildversion: 1
+        PACKAGES: "nano wget curl"
     depends_on:
-      - db
+      - postgres
     ports:
-      - "4000:4000"
+      - 4000:4000
+      - 9229:9229
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: yarn dev
+    environment:
+      DATABASE_URL: postgres://postgres:password@postgres/g2i
+      NODE_ENV: local
+      PORT: 4000
 
-  db:
-    image: lakeside763/g2i-db
+  postgres:
+    container_name: postgres
+    image: lakeside763/postgres
     build:
       context: .
       dockerfile: postgres.dockerfile
-    restart: unless-stopped
-    expose:
-      - "5432"
+    restart: always
     ports:
-      - "5432:5432"
+      - 5432:5432
     environment:
       POSTGRES_DB: g2i
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data
+
+
+
+
+
+
+  # postgres:
+  #   container_name: postgres_db
+  #   image: postgres.12.8
+  #   restart: always
+  #   expose:
+  #     - "5432"
+  #   ports:
+  #     - "5432:5432"
+  #   environment:
+  #     POSTGRES_DB: g2i
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: password
+  #   volumes:
+  #     - ./pgdata/data:/var/lib/postgresql/data
+  #     - ./pgdata/init:/docker-entrypoint-initdb.d
+
+
+
+
+
+
 

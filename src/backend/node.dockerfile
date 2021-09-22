@@ -1,19 +1,22 @@
-FROM node:12.18.3-alpine AS base
-FROM base AS build
+FROM node:15.5-alpine
 LABEL author="Olalekan Idowu"
 
+ARG PACKAGES=nano
+
+RUN apk update && apk add $PACKAGES
+
 WORKDIR /app
-ADD ./package.json ./yarn.lock ./
+COPY ./package.json ./
+COPY yarn.lock ./
 RUN yarn install
 
-# copy node_modules from the build image
-FROM base
+COPY prisma/schema.prisma ./prisma/
+COPY database.json ./
 
-WORKDIR /app
-COPY --from=build /app/node_modules node_modules
-ADD . /app
+# RUN npx db-migrate up
+RUN npx prisma generate
 
-RUN yarn prisma generate
+COPY . .
 
 EXPOSE 4000
 

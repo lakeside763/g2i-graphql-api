@@ -1,6 +1,6 @@
 const { app, config: { port }, shutdown } = require('./server');
 
-const server = app.listen({ port }, () => console.info(`🚀 Server ready at http://localhost:${port}`)); // eslint-disable-line no-console
+const server = app.listen(port, '0.0.0.0', () => console.info(`🚀 Server ready at http://localhost:${port}`)); // eslint-disable-line no-console
 
 process.on('SIGINT', async () => {
   await shutdown(server);
