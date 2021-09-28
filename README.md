@@ -4,10 +4,13 @@ Acronym v1.0 repo
 ### The application is built with the followig technologies:
  - Graphql
  - Apollo server
+ - Jest
  - Redis
  - Prisma
  - PostgresSQL
  - Docker etc.
+ - CircleCI
+ - Github
 
 
 
