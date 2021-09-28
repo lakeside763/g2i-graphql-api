@@ -21,7 +21,7 @@ services:
     command: yarn dev
     environment:
       DATABASE_URL: postgres://postgres:password@postgres/g2i
-      NODE_ENV: local
+      NODE_ENV: production
       PORT: 4000
 
   postgres:

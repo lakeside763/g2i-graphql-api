@@ -1,4 +1,4 @@
-FROM node:15.5-alpine
+FROM node:12.18.3-alpine
 LABEL author="Olalekan Idowu"
 
 ARG PACKAGES=nano
